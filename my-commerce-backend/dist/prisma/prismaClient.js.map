@@ -1,0 +1,1 @@
+{"version":3,"file":"prismaClient.js","sourceRoot":"","sources":["../../src/prisma/prismaClient.ts"],"names":[],"mappings":";;AAAA,2CAA8C;AAE9C,MAAM,MAAM,GAAG,IAAI,qBAAY,EAAE,CAAC;AAElC,kBAAe,MAAM,CAAC","sourcesContent":["import { PrismaClient } from '@prisma/client';\n\nconst prisma = new PrismaClient();\n\nexport default prisma;\n"]}
