@@ -24,6 +24,7 @@ jobs:
         eval "$(ssh-agent -s)"
         ssh-add my-key.pem
 
+        
     - name: Deploy Backend to EC2
       run: |
         ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
