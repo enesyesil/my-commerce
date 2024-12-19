@@ -1,21 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.addProduct = exports.getAllProducts = void 0;
-const prismaClient_1 = __importDefault(require("../prisma/prismaClient"));
-const getAllProducts = async (req, res) => {
+import prisma from '../prisma/prismaClient';
+export const getAllProducts = async (_, res) => {
     try {
-        const products = await prismaClient_1.default.product.findMany();
+        const products = await prisma.product.findMany();
         res.status(200).json(products);
     }
     catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-exports.getAllProducts = getAllProducts;
-const addProduct = async (req, res) => {
+export const addProduct = async (req, res) => {
     const { name, description, price, image } = req.body;
     if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ message: 'You are not authorized to add products.' });
@@ -33,7 +26,7 @@ const addProduct = async (req, res) => {
         return res.status(400).json({ message: 'Invalid product image.' });
     }
     try {
-        const product = await prismaClient_1.default.product.create({
+        const product = await prisma.product.create({
             data: { name, description, price, image },
         });
         res.status(201).json(product);
@@ -43,5 +36,4 @@ const addProduct = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-exports.addProduct = addProduct;
 //# sourceMappingURL=productController.js.map
