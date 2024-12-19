@@ -1,0 +1,26 @@
+name: Deploy Backend and Frontend to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH Agent
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+    - name: Deploy Backend to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-15-222-12-208.ca-central-1.compute.amazonaws.com  << 'EOF'
+          cd ~/my-commerce/my-commerce-backend
+          bash deploy.sh
+        EOF
