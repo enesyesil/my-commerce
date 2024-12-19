@@ -10,11 +10,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
     @Autowired
     private ProductService productService;
 
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable long id) {
+        return productService.getProductById(id); // Delegate to ProductService
     }
 }
