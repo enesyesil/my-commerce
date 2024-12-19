@@ -1,30 +1,30 @@
-name: Deploy Backend and Frontend to EC2
+name: Deploy-Backend-to-EC2
 
 on:
   push:
     branches:
-      - main
+      - master  # Trigger deployment on push to the master branch
 
 jobs:
   deploy:
+    name: Deploy Backend to EC2
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
-    - name: Deploy to EC2
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.HOST_DNS }}
-        REMOTE_USER: ${{ secrets.USERNAME }}
-        TARGET: ${{ secrets.TARGET_DIR }}
-
-
-    - name: Deploy Backend to EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@ec2-15-222-12-208.ca-central-1.compute.amazonaws.com  << 'EOF'
-          cd ~/my-commerce/my-spring
-          bash deploy.sh
-        EOF
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}  # Using the existing EC2_SSH_KEY
+          HOSTNAME: ${{ secrets.HOST_DNS }}           # Using the existing HOST_DNS
+          USERNAME: ${{ secrets.USERNAME }}           # Using the existing USERNAME
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} << 'EOF'
+            pkill -f 'java -jar' || echo "No running process to stop"
+            cd my-commerce/my-spring
+            git pull origin master
+            nohup java -jar target/my-spring-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+          EOF
