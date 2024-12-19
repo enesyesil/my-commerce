@@ -4,6 +4,7 @@ import authRoutes from './routes/auth';
 import productRoutes from './routes/products';
 import cartRoutes from './routes/cart';
 import dotenv from 'dotenv';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 
-const PORT = process.env.PORT || 5001;
+// Export as a serverless function for Vercel
+export default (req: VercelRequest, res: VercelResponse) => {
+  app(req as any, res as any);
+};
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
