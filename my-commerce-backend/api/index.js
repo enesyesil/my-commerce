@@ -1,21 +1,6 @@
-import express from 'express';
-import cors from 'cors';
-import authRoutes from './routes/auth';
-import productRoutes from './routes/products';
-import cartRoutes from './routes/cart';
-import dotenv from 'dotenv';
+const app = require('../dist/app').default; // Import the compiled Express app
 
-dotenv.config();
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
-app.use('/cart', cartRoutes);
-export default (req, res) => {
-    app(req, res);
+// Export a default serverless function
+module.exports = (req, res) => {
+  app(req, res);
 };
-
-//# sourceMappingURL=app.js.mapimport http from 'http';
-
-// Create a server object

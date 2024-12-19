@@ -4,7 +4,6 @@ import authRoutes from './routes/auth';
 import productRoutes from './routes/products';
 import cartRoutes from './routes/cart';
 import dotenv from 'dotenv';
-import http from 'http';
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -15,7 +14,4 @@ app.use('/cart', cartRoutes);
 export default (req, res) => {
     app(req, res);
 };
-
-//# sourceMappingURL=app.js.mapimport http from 'http';
-
-// Create a server object
+//# sourceMappingURL=app.js.map
