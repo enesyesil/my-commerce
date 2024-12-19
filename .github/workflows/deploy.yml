@@ -12,17 +12,17 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Deploy to EC2
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}  # Using the existing EC2_SSH_KEY
-          HOSTNAME: ${{ secrets.HOST_DNS }}           # Using the existing HOST_DNS
+          HOST_DNS: ${{ secrets.HOST_DNS }}           # Using the existing HOST_DNS (not HOSTNAME)
           USERNAME: ${{ secrets.USERNAME }}           # Using the existing USERNAME
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST_DNS} << 'EOF'
             pkill -f 'java -jar' || echo "No running process to stop"
             cd my-commerce/my-spring
             git pull origin master
