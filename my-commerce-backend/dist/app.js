@@ -16,6 +16,6 @@ app.use(express_1.default.json());
 app.use('/auth', auth_1.default);
 app.use('/products', products_1.default);
 app.use('/cart', cart_1.default);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 //# sourceMappingURL=app.js.map
