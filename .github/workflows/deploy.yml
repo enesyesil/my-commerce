@@ -1,31 +1,26 @@
-name: Deploy-Backend-to-EC2
+name: Deploy Backend and Frontend to EC2
+
 on:
   push:
     branches:
-      - master  # Deploy only when changes are pushed to the master branch
+      - main
 
 jobs:
   deploy:
-    name: Deploy Backend to EC2
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code from the repository
-      - name: Checkout the code
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      # Step 2: Set up the SSH agent and add the private key
-      - name: Set up SSH Agent
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+    - name: Set up SSH Agent
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Step 3: Deploy the code to the EC2 instance
-      - name: Deploy to EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST_DNS }} << 'EOF'
-          cd ${{ secrets.TARGET_DIR }}
-          git pull origin master
-          pkill -f 'java -jar' || true  # Stop any running instance of the app
-          nohup java -jar target/my-spring-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
-          EOF
+    - name: Deploy Backend to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-15-222-12-208.ca-central-1.compute.amazonaws.com  << 'EOF'
+          cd ~/my-commerce/my-spring
+          bash deploy.sh
+        EOF
