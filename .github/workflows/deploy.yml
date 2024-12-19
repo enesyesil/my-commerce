@@ -7,22 +7,26 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # This is the runner for GitHub Actions, unrelated to EC2 OS
+    runs-on: ubuntu-latest  # Runner used for this job
+
+    env:
+      EC2_SSH_KEY: |
+        ${{ secrets.EC2_SSH_KEY }}  # Multiline secret for the private key
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
     - name: Set up SSH Agent
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+      run: |
+        echo "${EC2_SSH_KEY}" > ssh_key.pem
+        chmod 600 ssh_key.pem
+        eval "$(ssh-agent -s)"
+        ssh-add ssh_key.pem
 
-    - name: Deploy to EC2
+    - name: Deploy Backend to EC2
       run: |
         ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
-          # Navigate to the backend directory
           cd ~/my-commerce/my-spring
-          # Run the deployment script
           bash deploy.sh
         EOF
