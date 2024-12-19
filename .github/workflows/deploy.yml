@@ -24,3 +24,5 @@ jobs:
           cd ~/my-commerce/my-commerce-backend
           bash deploy.sh
         EOF
+
+        
