@@ -3,26 +3,26 @@ name: Deploy Backend to EC2
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to the main branch
+      - main  # Trigger deployment on the main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Runner used for this job
+    runs-on: ubuntu-latest  # Use the default Ubuntu runner
 
     env:
       EC2_SSH_KEY: |
-        ${{ secrets.EC2_SSH_KEY }}  # Multiline secret for the private key
+        ${{ secrets.EC2_SSH_KEY }}  # Reference your GitHub secret for the private key
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Set up SSH Agent
+    - name: Set up SSH Agent with my-key.pem
       run: |
-        echo "${EC2_SSH_KEY}" > ssh_key.pem
-        chmod 600 ssh_key.pem
+        echo "${EC2_SSH_KEY}" > my-key.pem
+        chmod 600 my-key.pem
         eval "$(ssh-agent -s)"
-        ssh-add ssh_key.pem
+        ssh-add my-key.pem
 
     - name: Deploy Backend to EC2
       run: |
