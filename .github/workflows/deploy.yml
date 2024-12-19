@@ -3,11 +3,11 @@ name: Deploy Backend to EC2
 on:
   push:
     branches:
-      - main  # Trigger workflow on push to the main branch
+      - main  # Trigger deployment on push to the main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # This is the runner for GitHub Actions, unrelated to EC2 OS
 
     steps:
     - name: Checkout Repository
@@ -18,9 +18,11 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-    - name: Deploy Backend to EC2
+    - name: Deploy to EC2
       run: |
         ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
-          cd ~/my-commerce/my-commerce-backend
+          # Navigate to the backend directory
+          cd ~/my-commerce/my-spring
+          # Run the deployment script
           bash deploy.sh
         EOF
