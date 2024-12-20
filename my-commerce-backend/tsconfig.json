@@ -1,41 +1,41 @@
 {
   "compilerOptions": {
     /* Language and Module Options */
-    "target": "ES2020",                              /* Set the ECMAScript target version */
-    "module": "commonjs",                            /* CommonJS modules for Node.js */
-    "moduleResolution": "node",                      /* Resolve modules in Node.js style */
-    "lib": ["ES2020"],                               /* Include modern ECMAScript libraries */
-    "allowJs": true,                                 /* Allow JavaScript files to be compiled */
-    "resolveJsonModule": true,                       /* Enable importing JSON files */
-    "esModuleInterop": true,                         /* Enable compatibility with CommonJS and ES modules */
-    "allowSyntheticDefaultImports": true,            /* Allow default imports even if not present */
-    "typeRoots": ["./node_modules/@types"],          /* Specify type declarations folder */
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["ES2020"],
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types"],
 
     /* Output Options */
-    "rootDir": ".",                               /* Specify the output directory for compiled files */
-    "outDir": "./dist",                             /* Specify the root directory of input files */
-    "declaration": true,                             /* Generate .d.ts files for module definitions */
-    "sourceMap": true,                               /* Generate source map files for debugging */
-    "inlineSources": true,                           /* Include source files in source maps */
-    "removeComments": true,                          /* Remove comments from compiled output */
+    "rootDir": "./src",             /* Specify the root directory of input files */
+    "outDir": "./dist",             /* Specify the output directory for compiled files */
+    "declaration": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "removeComments": true,
 
     /* Type Checking Options */
-    "strict": true,                                  /* Enable all strict type-checking options */
-    "noImplicitAny": false,                          /* Allow implicit 'any' types */
-    "noUnusedLocals": true,                          /* Report unused local variables */
-    "noUnusedParameters": true,                      /* Report unused parameters */
-    "strictNullChecks": true,                        /* Make null and undefined distinct types */
-    "forceConsistentCasingInFileNames": true,        /* Ensure file name casing is consistent */
+    "strict": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Path Mapping */
-    "baseUrl": "./",                                 /* Set the base directory for resolving paths */
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]                               /* Define path aliases for cleaner imports */
+      "@/*": ["src/*"]
     },
 
     /* Compatibility Options */
-    "skipLibCheck": true                             /* Skip type checks for declaration files */
+    "skipLibCheck": true
   },
-  "include": ["src/**/*", "api/**/*"],               /* Include all source files and serverless functions */
-  "exclude": ["node_modules", "dist", "tests"]       /* Exclude dependencies, output folder, and test files */
+  "include": ["src/**/*"],             /* Include all source files */
+  "exclude": ["node_modules", "dist"]  /* Exclude dependencies and output folder */
 }
