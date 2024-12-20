@@ -1,6 +1,6 @@
-const app = require('../dist/app').default; // Import the compiled Express app
+const app = require('../src/app');
 
-// Export a default serverless function
+// Export the app as a serverless function for Vercel
 module.exports = (req, res) => {
   app(req, res);
 };

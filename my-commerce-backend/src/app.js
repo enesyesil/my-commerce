@@ -14,5 +14,4 @@ app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+module.exports = app; // Export the app for serverless deployment

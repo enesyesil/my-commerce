@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import productRoutes from './routes/products';
 import cartRoutes from './routes/cart';
-import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 app.use(cors());
