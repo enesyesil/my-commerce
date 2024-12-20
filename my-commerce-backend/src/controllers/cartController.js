@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCart = exports.addToCart = void 0;
-const prismaClient_1 = __importDefault(require("../../prisma/prismaClient"));
+const prismaClient_1 = __importDefault(require("../prisma/prismaClient"));
 const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, productId, quantity } = req.body;
     try {

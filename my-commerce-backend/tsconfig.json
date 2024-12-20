@@ -12,8 +12,8 @@
     "typeRoots": ["./node_modules/@types"],          /* Specify type declarations folder */
 
     /* Output Options */
-    "outDir": "./dist",                              /* Specify the output directory for compiled files */
-    "rootDir": "./src",                              /* Specify the root directory of input files */
+    "rootDir": ".",                               /* Specify the output directory for compiled files */
+    "outDir": "./dist",                             /* Specify the root directory of input files */
     "declaration": true,                             /* Generate .d.ts files for module definitions */
     "sourceMap": true,                               /* Generate source map files for debugging */
     "inlineSources": true,                           /* Include source files in source maps */
