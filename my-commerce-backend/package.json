@@ -5,7 +5,7 @@
   "description": "Backend for My-Commerce application",
   "main": "api/index.js",
   "scripts": {
-    "start": "node api/index.js",                  
+    "start": "node index.js",                  
     "dev": "nodemon api/index.js",                
     "build": "echo 'No build step required'",     
     "postinstall": "prisma generate"              
