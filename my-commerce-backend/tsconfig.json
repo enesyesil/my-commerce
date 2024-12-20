@@ -1,41 +1,21 @@
 {
   "compilerOptions": {
-    /* Language and Module Options */
     "target": "ES2020",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["ES2020"],
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "typeRoots": ["./node_modules/@types"],
-
-    /* Output Options */
-    "rootDir": "./src",             /* Specify the root directory of input files */
-    "outDir": "./dist",             /* Specify the output directory for compiled files */
-    "declaration": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "removeComments": true,
-
-    /* Type Checking Options */
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Path Mapping */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
-    },
-
-    /* Compatibility Options */
-    "skipLibCheck": true
+    }
   },
-  "include": ["src/**/*"],             /* Include all source files */
-  "exclude": ["node_modules", "dist"]  /* Exclude dependencies and output folder */
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "api"]
 }
