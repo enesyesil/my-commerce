@@ -1,21 +1,27 @@
-import prisma from '../prisma/prismaClient';
-export const addToCart = async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearCart = exports.getCart = exports.addToCart = void 0;
+const prismaClient_1 = __importDefault(require("../prisma/prismaClient"));
+const addToCart = async (req, res) => {
     const { userId, productId, quantity } = req.body;
     if (req.user.id !== userId) {
         return res.status(403).json({ message: 'You are not authorized to modify this cart.' });
     }
     try {
-        const existingCartItem = await prisma.cart.findFirst({
+        const existingCartItem = await prismaClient_1.default.cart.findFirst({
             where: { userId, productId },
         });
         if (existingCartItem) {
-            const updatedCartItem = await prisma.cart.update({
+            const updatedCartItem = await prismaClient_1.default.cart.update({
                 where: { id: existingCartItem.id },
                 data: { quantity: existingCartItem.quantity + quantity },
             });
             return res.status(200).json(updatedCartItem);
         }
-        const newCartItem = await prisma.cart.create({
+        const newCartItem = await prismaClient_1.default.cart.create({
             data: { userId, productId, quantity },
         });
         res.status(201).json(newCartItem);
@@ -24,13 +30,14 @@ export const addToCart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-export const getCart = async (req, res) => {
+exports.addToCart = addToCart;
+const getCart = async (req, res) => {
     const { userId } = req.query;
     if (req.user.id !== Number(userId)) {
         return res.status(403).json({ message: 'You are not authorized to access this cart.' });
     }
     try {
-        const cartItems = await prisma.cart.findMany({
+        const cartItems = await prismaClient_1.default.cart.findMany({
             where: { userId: Number(userId) },
             include: { product: true },
         });
@@ -44,13 +51,14 @@ export const getCart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-export const clearCart = async (req, res) => {
+exports.getCart = getCart;
+const clearCart = async (req, res) => {
     const { userId } = req.query;
     if (req.user.id !== Number(userId)) {
         return res.status(403).json({ message: 'You are not authorized to clear this cart.' });
     }
     try {
-        await prisma.cart.deleteMany({
+        await prismaClient_1.default.cart.deleteMany({
             where: { userId: Number(userId) },
         });
         res.status(200).json({ message: 'Cart cleared successfully.' });
@@ -59,4 +67,5 @@ export const clearCart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+exports.clearCart = clearCart;
 //# sourceMappingURL=cartController.js.map

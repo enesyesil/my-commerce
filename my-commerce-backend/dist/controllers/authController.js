@@ -1,11 +1,17 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import prisma from '../prisma/prismaClient';
-export const register = async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.login = exports.register = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const prismaClient_1 = __importDefault(require("../prisma/prismaClient"));
+const register = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await prisma.user.create({
+        const hashedPassword = await bcrypt_1.default.hash(password, 10);
+        const user = await prismaClient_1.default.user.create({
             data: { email, password: hashedPassword },
         });
         res.status(201).json({ message: 'User registered', user });
@@ -14,22 +20,23 @@ export const register = async (req, res) => {
         res.status(400).json({ message: 'User already exists' });
     }
 };
-export const login = async (req, res) => {
+exports.register = register;
+const login = async (req, res) => {
     const { email, password } = req.body;
     console.log("Login request received:", { email });
     try {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prismaClient_1.default.user.findUnique({ where: { email } });
         console.log("User retrieved from database:", user);
         if (!user) {
             console.log(`User not found: ${email}`);
             return res.status(401).json({ message: "Invalid credentials" });
         }
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const passwordMatch = await bcrypt_1.default.compare(password, user.password);
         console.log(`Password match for ${email}:`, passwordMatch);
         if (!passwordMatch) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
         console.log(`Generated token for ${email}: ${token}`);
         res.json({ token });
     }
@@ -38,4 +45,5 @@ export const login = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+exports.login = login;
 //# sourceMappingURL=authController.js.map
