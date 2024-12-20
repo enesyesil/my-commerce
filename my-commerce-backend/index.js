@@ -18,8 +18,16 @@ app.use('/auth', authRoutes);
 app.use('/products', productRouter);
 
 // Default route
-app.get('/', (req, res) => {
-  res.send('API is running...');
+app.get('/', (_req, res) => {
+  res.send(`
+    <h1>🚀 My Commerce Backend</h1>
+    <p>🌐 API is running successfully!</p>
+    <p>Available routes:</p>
+    <ul>
+      <li><a href="/auth">/auth</a> - Authentication routes</li>
+      <li><a href="/products">/products</a> - Product routes</li>
+    </ul>
+  `);
 });
 
 
