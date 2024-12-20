@@ -1,21 +1,40 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": ["ES2020"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
+    /* Language and Module Options */
+    "target": "ES2020",                     /* Target modern ECMAScript features */
+    "module": "commonjs",                   /* CommonJS modules for Node.js */
+    "moduleResolution": "node",            /* Use Node.js module resolution */
+    "lib": ["ES2020"],                      /* Include ES2020 libraries */
+    "allowJs": true,                        /* Allow JavaScript files in the project */
+    "resolveJsonModule": true,              /* Enable importing JSON files */
+    "esModuleInterop": true,                /* Ensure compatibility with CommonJS and ES modules */
+    "allowSyntheticDefaultImports": true,   /* Allow default imports even if no default export */
+
+    /* Output Options */
+    "rootDir": ".",                         /* Include all files in the project */
+    "outDir": "./dist",                     /* Output compiled files to dist */
+    "declaration": true,                    /* Generate .d.ts declaration files */
+    "sourceMap": true,                      /* Generate source maps for debugging */
+    "inlineSources": true,                  /* Include source files in source maps */
+    "removeComments": true,                 /* Remove comments from compiled output */
+
+    /* Type Checking Options */
+    "strict": true,                         /* Enable all strict type-checking options */
+    "noImplicitAny": false,                 /* Allow implicit 'any' types */
+    "noUnusedLocals": true,                 /* Report unused local variables */
+    "noUnusedParameters": true,             /* Report unused function parameters */
+    "strictNullChecks": true,               /* Enable null/undefined checks */
+    "forceConsistentCasingInFileNames": true, /* Enforce consistent casing in imports */
+
+    /* Path Mapping */
+    "baseUrl": "./",                        /* Base directory for imports */
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["src/*"]                      /* Define path aliases for cleaner imports */
+    },
+
+    /* Compatibility Options */
+    "skipLibCheck": true                    /* Skip type checking for declaration files */
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "api"]
+  "include": ["src/**/*", "api/**/*"],       /* Include all source files and serverless functions */
+  "exclude": ["node_modules", "dist"]       /* Exclude dependencies and output folder */
 }
