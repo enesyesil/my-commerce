@@ -2,10 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import authRoutes from './routes/auth.js';
-import cartRouter from './routes/cart.js';
-import productRouter from './routes/products.js';
-
+// Import routes
+import authRoutes from './api/routes/auth.js';
+import productRouter from './api/routes/products.js';
 
 dotenv.config();
 
@@ -16,13 +15,13 @@ app.use(express.json());
 
 // Define routes
 app.use('/auth', authRoutes);
-app.use('/cart', cartRouter);
 app.use('/products', productRouter);
 
 // Default route
-app.get('/', (_, res) => {
+app.get('/', (req, res) => {
   res.send('API is running...');
 });
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
