@@ -1,9 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const authRoutes = require('../dist/routes/auth').default;
-const productRoutes = require('../dist/routes/products').default;
-const cartRoutes = require('../dist/routes/cart').default;
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+import authRoutes from './routes/auth.js';
+import cartRouter from './routes/cart.js';
+import productRouter from './routes/products.js';
+
 
 dotenv.config();
 
@@ -12,11 +14,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ensure you use `.default` for default exports
+// Define routes
 app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
-app.use('/cart', cartRoutes);
+app.use('/cart', cartRouter);
+app.use('/products', productRouter);
 
-module.exports = (req, res) => {
-  app(req, res);
-};
+// Default route
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
+// Start server
+const PORT = process.env.PORT || 5003;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,15 +1,18 @@
-import prisma from '../prisma/prismaClient';
+import prisma from '../prisma/prismaClient.js'; // Adjust relative path as needed
+
 
 // Get All Products
-export const getAllProducts = async (_: any, res: any) => {
+export const getAllProducts = async (_, res) => {
   try {
     const products = await prisma.product.findMany();
     res.status(200).json(products);
   } catch (error) {
+    console.error('Error fetching products:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
+// Add a New Product
 export const addProduct = async (req, res) => {
   const { name, description, price, image } = req.body;
 
