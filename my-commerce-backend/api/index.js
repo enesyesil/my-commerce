@@ -1,5 +1,5 @@
-const app = require('../dist/app').default; // Import the compiled Express app
+import app from '../dist/app'; // Correct path to compiled app.js
 
-module.exports = (req, res) => {
+export default (req, res) => {
   app(req, res); // Export Express app as a serverless function
 };

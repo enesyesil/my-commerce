@@ -1,2 +1,2 @@
-declare function _exports(req: any, res: any): void;
-export = _exports;
+declare function _default(req: any, res: any): void;
+export default _default;
