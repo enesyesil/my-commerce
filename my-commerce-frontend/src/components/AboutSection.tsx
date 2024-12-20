@@ -11,7 +11,7 @@ const AboutSection: React.FC = () => {
           electronics to everyday essentials.
         </p>
         <p className="text-lg text-black mt-4">
-          Whether you're looking for gifts, gadgets, or groceries, we've got you covered!
+          Whether you&apos;re looking for gifts, gadgets, or groceries, we&apos;ve got you covered!
         </p>
       </div>
 
