@@ -1,25 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const authRoutes = require('../src/routes/auth');
-const productRoutes = require('../src/routes/products');
-const cartRoutes = require('../src/routes/cart');
+const authRoutes = require('../dist/routes/auth').default;
+const productRoutes = require('../dist/routes/products').default;
+const cartRoutes = require('../dist/routes/cart').default;
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Ensure you use `.default` for default exports
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 
-// Export as a serverless function
 module.exports = (req, res) => {
   app(req, res);
 };
