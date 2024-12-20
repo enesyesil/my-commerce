@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 const products = [
@@ -9,8 +10,8 @@ const products = [
 ];
 
 const ProductDetails = () => {
-  const params = useParams(); // Fetches dynamic route parameters
-  const id = params?.id; // Extract `id` from the URL
+  const params = useParams();
+  const id = params?.id;
 
   const product = products.find((p) => p.id === Number(id));
 
@@ -25,7 +26,13 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-yellow-200 p-6">
       <div className="max-w-md mx-auto bg-yellow-300 border-2 border-black p-6 rounded-lg">
-        <img src={product.image} alt={product.name} className="w-full h-64 object-cover mb-4" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={500}
+          height={300}
+          className="w-full h-64 object-cover mb-4"
+        />
         <h1 className="text-2xl font-bold text-black">{product.name}</h1>
         <p className="text-lg font-bold text-black">{product.price}</p>
         <p className="text-black mt-4">{product.description}</p>
