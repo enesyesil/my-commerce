@@ -1,4 +1,4 @@
-import prisma from '../prisma/prismaClient';
+import prisma from '../prisma/prismaClient.js';
 
 // Get products with filtering, sorting, and pagination
 export const getProducts = async ({ category, brand, sortBy, order, page, limit }) => {

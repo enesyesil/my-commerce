@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import prisma from '../prisma/prismaClient.js'; // Adjust relative path as needed
+import prisma from '../../prisma/prismaClient.js'; // Adjust relative path as needed
 
 
 export const register = async (req, res) => {

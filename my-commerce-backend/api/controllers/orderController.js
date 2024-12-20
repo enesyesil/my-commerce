@@ -1,4 +1,4 @@
-import { placeOrderInDB, getOrderHistoryFromDB } from '../services/orderService';
+import { placeOrderInDB, getOrderHistoryFromDB } from '../service/orderService.js';
 
 export const placeOrder = async (req, res) => {
   try {

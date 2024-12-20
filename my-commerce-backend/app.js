@@ -5,11 +5,11 @@ import cors from 'cors';
 
 // Import routes
 // Updated imports for moved routes
-import authRoutes from './api/routes/auth';
-import catalogRoutes from './api/routes/catalog';
-import cartRoutes from './api/routes/cart';
-import orderRoutes from './api/routes/order';
-import adminRoutes from './api/routes/admin';
+import authRoutes from './api/routes/auth.js';
+import catalogRoutes from './api/routes/catalog.js';
+import cartRoutes from './api/routes/cart.js';
+import orderRoutes from './api/routes/order.js';
+import adminRoutes from './api/routes/admin.js';
 
 
 dotenv.config();
@@ -31,5 +31,5 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

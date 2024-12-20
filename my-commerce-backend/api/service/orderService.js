@@ -1,4 +1,4 @@
-import prisma from '../prisma/prismaClient';
+import prisma from '../prisma/prismaClient.js';
 
 export const placeOrderInDB = async (userId, items) => {
   const orderData = items.map((item) => ({

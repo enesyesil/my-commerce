@@ -1,4 +1,5 @@
-import prisma from '../prisma/prismaClient';
+import prisma from '../prisma/prismaClient.js';
+
 
 // Add item to cart
 export const addCartItem = async (userId, productId, quantity) => {

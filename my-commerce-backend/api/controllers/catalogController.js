@@ -1,4 +1,4 @@
-import { getProducts, getProductById } from '../services/productService';
+import { getProducts, getProductById } from '../service/productService.js';
 
 // List items with filters, sorting, and pagination
 export const listItems = async (req, res) => {

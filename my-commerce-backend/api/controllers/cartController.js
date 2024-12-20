@@ -1,4 +1,4 @@
-import { addCartItem, removeCartItem, getCartItems } from '../services/cartService';
+import { addCartItem, removeCartItem, getCartItems } from '../service/cartService.js';
 
 export const addToCart = async (req, res) => {
   const { userId, productId, quantity } = req.body;
