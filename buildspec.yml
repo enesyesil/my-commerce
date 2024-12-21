@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing dependencies"
+      - cd my-commerce-backend # Change to your backend directory
+      - npm install
+  build:
+    commands:
+      - echo "Building the project"
+      - npm run build
+  post_build:
+    commands:
+      - echo "Build phase completed"
+      - ls -la
+artifacts:
+  files:
+    - '**/*'
+  base-directory: my-commerce-backend # Specify backend as the base directory for artifacts
