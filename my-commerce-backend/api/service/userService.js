@@ -1,4 +1,5 @@
-import prisma from '../prisma/prismaClient';
+import prisma from '../prisma/prismaClient.js';
+
 
 // Register a new user
 export const registerUser = async (userData) => {
@@ -15,5 +16,19 @@ export const updateUserProfile = async (userId, updates) => {
   return prisma.user.update({
     where: { id: userId },
     data: updates,
+  });
+};
+
+export const getUserProfileById = async (userId) => {
+  return prisma.user.findUnique({
+    where: { id: userId },
+  });
+};
+
+// Update user address
+export const updateUserAddress = async (userId, address) => {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { address },
   });
 };

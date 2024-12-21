@@ -10,7 +10,7 @@ import catalogRoutes from './api/routes/catalog.js';
 import cartRoutes from './api/routes/cart.js';
 import orderRoutes from './api/routes/order.js';
 import adminRoutes from './api/routes/admin.js';
-
+import userRoutes from './api/routes/user.js';
 
 dotenv.config();
 
@@ -23,7 +23,9 @@ app.use('/auth', authRoutes);
 app.use('/catalog', catalogRoutes);
 app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
-app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes); // Ensure this line exists
+app.use('/user', userRoutes); 
+
 
 // Default route
 app.get('/', (req, res) => {

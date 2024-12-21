@@ -2,7 +2,7 @@ import { getProducts, getProductById } from '../service/productService.js';
 
 // List items with filters, sorting, and pagination
 export const listItems = async (req, res) => {
-  const { category, brand, sortBy, order = 'asc', page = 1, limit = 10 } = req.query;
+  const { category, brand, sortBy, order = 'asc', page = 1, limit = 30 } = req.query;
 
   try {
     const products = await getProducts({ category, brand, sortBy, order, page, limit });

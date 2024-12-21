@@ -6,15 +6,15 @@ interface ProductProps {
   product: {
     id: number;
     name: string;
-    price: string;
-    image: string;
+    price: number;
+    image?: string;
   };
 }
 
 const ProductCard: React.FC<ProductProps> = ({ product }) => (
   <div className="bg-yellow-300 border-2 border-black p-4 rounded-lg">
     <Image
-      src={product.image}
+      src={product.image || '/fallback.jpg'}
       alt={product.name}
       width={400}
       height={250}

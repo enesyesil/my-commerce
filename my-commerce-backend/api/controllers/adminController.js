@@ -1,5 +1,5 @@
 // File: controllers/adminController.js
-import { getSalesHistory, updateInventory, updateUser } from '../service/adminService.js';
+import { getSalesHistory, updateInventory } from '../service/adminService.js';
 
 
 export const viewSalesHistory = async (req, res) => {
@@ -22,13 +22,3 @@ export const manageInventory = async (req, res) => {
   }
 };
 
-export const manageUsers = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const updates = req.body;
-    const updatedUser = await updateUser(userId, updates);
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    res.status(500).json({ message: 'Error managing user', error: error.message });
-  }
-};

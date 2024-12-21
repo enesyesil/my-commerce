@@ -14,11 +14,3 @@ export const updateInventory = async (productId, updates) => {
     data: updates,
   });
 };
-
-// Update user information
-export const updateUser = async (userId, updates) => {
-  return prisma.user.update({
-    where: { id: parseInt(userId, 10) },
-    data: updates,
-  });
-};
