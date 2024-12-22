@@ -11,6 +11,7 @@ import orderRoutes from './api/routes/order.js';
 import adminRoutes from './api/routes/admin.js';
 import userRoutes from './api/routes/user.js';
 
+
 dotenv.config();
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
 app.use('/admin', adminRoutes);
 app.use('/user', userRoutes);
+
 
 // Default route
 app.get('/', (req, res) => {
