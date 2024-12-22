@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { verifyUser } from '../../api/auth'; // Assume this uses an HTTP-only cookie
+import { verifyUser } from '../../api/auth'; // API to verify user session
 import AuthGuard from '@/components/authGuard';
 import Header from '@/components/Header';
 
@@ -15,7 +15,7 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await verifyUser(); // Use verifyUser API to check session
+        const response = await verifyUser(); // This should rely on HTTP-only cookies
         if (!response.loggedIn) {
           setError('Not logged in. Please log in to continue.');
           return;
@@ -40,7 +40,7 @@ const ProfilePage: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Ensure HTTP-only cookies are included
+        credentials: 'include', // Include HTTP-only cookies
         body: JSON.stringify({ address: newAddress }),
       });
 
