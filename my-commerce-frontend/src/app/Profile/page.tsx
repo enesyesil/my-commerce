@@ -1,55 +1,61 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import React, { useEffect, useState } from 'react';
-import { fetchUserProfile, UserProfile, updateUserAddress } from '../../api/user';
+import { verifyUser } from '../../api/auth'; // Import verifyUser API
 import AuthGuard from '@/components/authGuard';
 import Header from '@/components/Header';
 
 const ProfilePage: React.FC = () => {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingAddress, setEditingAddress] = useState(false);
   const [newAddress, setNewAddress] = useState('');
 
   useEffect(() => {
-    const loadUserProfile = async () => {
+    const fetchUserProfile = async () => {
       try {
-        if (typeof window === 'undefined') return; // Ensure it runs only on the client
-
-        const token = localStorage.getItem('token');
-        if (!token) {
-          setError('No token found. Please log in.');
+        const response = await verifyUser();
+        if (!response.loggedIn) {
+          setError('Not logged in. Please log in to continue.');
           return;
         }
-
-        const data = await fetchUserProfile();
-        setUser(data);
-        setNewAddress(data.address);
-      } catch (err) {
-        setError('Failed to load user profile.');
+        setUser(response.user);
+        setNewAddress(response.user.address || '');
+      } catch (err: any) {
+        setError('Failed to fetch user profile.');
         console.error('Error fetching user profile:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    loadUserProfile();
+    fetchUserProfile();
   }, []);
 
   const handleUpdateAddress = async () => {
     try {
-      await updateUserAddress(newAddress);
+      const response = await fetch('/api/user/address', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include the cookie
+        body: JSON.stringify({ address: newAddress }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update address');
+      }
+
       if (user) {
         setUser({ ...user, address: newAddress });
       }
       setEditingAddress(false);
       alert('Address updated successfully!');
-    } catch (err) {
-      console.error('Failed to update address:', err);
+    } catch (err: any) {
       alert('Failed to update address. Please try again.');
+      console.error(err);
     }
   };
 
@@ -67,10 +73,10 @@ const ProfilePage: React.FC = () => {
           ) : user ? (
             <>
               <p className="text-lg text-black mb-2">
-                <strong>Name:</strong> {user.name}
+                <strong>Name:</strong> {user.name || 'N/A'}
               </p>
               <p className="text-lg text-black mb-2">
-                <strong>Email:</strong> {user.email}
+                <strong>Email:</strong> {user.email || 'N/A'}
               </p>
               <div className="mb-4">
                 <strong className="text-lg text-black">Address:</strong>
@@ -99,7 +105,7 @@ const ProfilePage: React.FC = () => {
                   </div>
                 ) : (
                   <div className="mt-2 flex justify-between items-center">
-                    <span className="text-black">{user.address}</span>
+                    <span className="text-black">{user.address || 'No Address'}</span>
                     <button
                       className="bg-blue-500 text-white py-2 px-4 rounded shadow"
                       onClick={() => setEditingAddress(true)}
