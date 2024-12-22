@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 // Import routes
-import authRoutes from './api/routes/auth.js';
-import catalogRoutes from './api/routes/catalog.js';
-import cartRoutes from './api/routes/cart.js';
-import orderRoutes from './api/routes/order.js';
-import adminRoutes from './api/routes/admin.js';
-import userRoutes from './api/routes/user.js';
+import authRoutes from './routes/auth.js';
+import catalogRoutes from './routes/catalog.js';
+import cartRoutes from './routes/cart.js';
+import orderRoutes from './routes/order.js';
+import adminRoutes from './routes/admin.js';
+import userRoutes from './routes/user.js';
 
 dotenv.config();
 
