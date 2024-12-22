@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from 'react';
 import { fetchUserProfile, UserProfile, updateUserAddress } from '../../api/user';
 import AuthGuard from '@/components/authGuard';
@@ -16,7 +18,10 @@ const ProfilePage: React.FC = () => {
     const loadUserProfile = async () => {
       try {
         const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-        if (!token) throw new Error('No token found');
+        if (!token) {
+          setError('No token found. Please log in.');
+          return;
+        }
 
         const data = await fetchUserProfile();
         setUser(data);
