@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3005', // Backend base URL
+  baseURL: 'https://ecom-api-npeki.ondigitalocean.app/', // Backend base URL
   withCredentials: true, // Include credentials (if applicable)
   headers: {
     'Content-Type': 'application/json',
