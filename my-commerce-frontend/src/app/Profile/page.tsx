@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { verifyUser } from '../../api/auth'; // API to verify user session
+import { verifyUser } from '../../api/auth';
 import AuthGuard from '@/components/authGuard';
 import Header from '@/components/Header';
 
@@ -13,9 +13,13 @@ const ProfilePage: React.FC = () => {
   const [newAddress, setNewAddress] = useState('');
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return; // Prevent code execution during server-side rendering
+    }
+
     const fetchUserProfile = async () => {
       try {
-        const response = await verifyUser(); // This should rely on HTTP-only cookies
+        const response = await verifyUser();
         if (!response.loggedIn) {
           setError('Not logged in. Please log in to continue.');
           return;
@@ -40,7 +44,7 @@ const ProfilePage: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Include HTTP-only cookies
+        credentials: 'include',
         body: JSON.stringify({ address: newAddress }),
       });
 
@@ -59,6 +63,10 @@ const ProfilePage: React.FC = () => {
       console.error('Error updating address:', err);
     }
   };
+
+  if (typeof window === 'undefined') {
+    return null; // Render nothing during SSR
+  }
 
   return (
     <AuthGuard>
