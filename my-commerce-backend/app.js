@@ -26,7 +26,7 @@ app.use('/admin', adminRoutes);
 app.use('/user', userRoutes);
 
 // Default route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Welcome to the My-Commerce API');
 });
 
