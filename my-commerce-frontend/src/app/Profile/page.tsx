@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { verifyUser } from '../../api/auth'; // Import verifyUser API
+import { verifyUser } from '../../api/auth'; // Assume this uses an HTTP-only cookie
 import AuthGuard from '@/components/authGuard';
 import Header from '@/components/Header';
 
@@ -15,15 +15,13 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        if (typeof window !== 'undefined') {
-          const response = await verifyUser();
-          if (!response.loggedIn) {
-            setError('Not logged in. Please log in to continue.');
-            return;
-          }
-          setUser(response.user);
-          setNewAddress(response.user.address || '');
+        const response = await verifyUser(); // Use verifyUser API to check session
+        if (!response.loggedIn) {
+          setError('Not logged in. Please log in to continue.');
+          return;
         }
+        setUser(response.user);
+        setNewAddress(response.user.address || '');
       } catch (err: any) {
         setError('Failed to fetch user profile.');
         console.error('Error fetching user profile:', err);
@@ -41,11 +39,8 @@ const ProfilePage: React.FC = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${
-            typeof window !== 'undefined' ? localStorage.getItem('token') : ''
-          }`, // Add Authorization token conditionally
         },
-        credentials: 'include', // Include the cookie
+        credentials: 'include', // Ensure HTTP-only cookies are included
         body: JSON.stringify({ address: newAddress }),
       });
 
