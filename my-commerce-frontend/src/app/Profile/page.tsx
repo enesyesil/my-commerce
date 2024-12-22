@@ -15,6 +15,9 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        if (!token) throw new Error('No token found');
+
         const data = await fetchUserProfile();
         setUser(data);
         setNewAddress(data.address);
@@ -45,7 +48,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <AuthGuard>
-        <Header />
+      <Header />
       <div className="min-h-screen bg-yellow-200 p-6">
         <div className="max-w-md mx-auto bg-yellow-300 border-2 border-black p-6 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-black mb-4">My Profile</h1>
