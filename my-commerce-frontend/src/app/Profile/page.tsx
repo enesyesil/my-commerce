@@ -17,6 +17,7 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
+        // Ensure safe access to localStorage
         const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
         if (!token) {
           setError('No token found. Please log in.');
