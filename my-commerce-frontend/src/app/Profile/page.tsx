@@ -15,13 +15,15 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await verifyUser();
-        if (!response.loggedIn) {
-          setError('Not logged in. Please log in to continue.');
-          return;
+        if (typeof window !== 'undefined') {
+          const response = await verifyUser();
+          if (!response.loggedIn) {
+            setError('Not logged in. Please log in to continue.');
+            return;
+          }
+          setUser(response.user);
+          setNewAddress(response.user.address || '');
         }
-        setUser(response.user);
-        setNewAddress(response.user.address || '');
       } catch (err: any) {
         setError('Failed to fetch user profile.');
         console.error('Error fetching user profile:', err);
@@ -39,7 +41,9 @@ const ProfilePage: React.FC = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Add Authorization token
+          Authorization: `Bearer ${
+            typeof window !== 'undefined' ? localStorage.getItem('token') : ''
+          }`, // Add Authorization token conditionally
         },
         credentials: 'include', // Include the cookie
         body: JSON.stringify({ address: newAddress }),
