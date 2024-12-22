@@ -17,7 +17,7 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
-        if (typeof window === 'undefined') return;
+        if (typeof window === 'undefined') return; // Ensure it runs only on the client
 
         const token = localStorage.getItem('token');
         if (!token) {
