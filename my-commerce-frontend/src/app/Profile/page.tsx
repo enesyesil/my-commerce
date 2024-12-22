@@ -39,13 +39,15 @@ const ProfilePage: React.FC = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`, // Add Authorization token
         },
         credentials: 'include', // Include the cookie
         body: JSON.stringify({ address: newAddress }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update address');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update address');
       }
 
       if (user) {
@@ -55,7 +57,7 @@ const ProfilePage: React.FC = () => {
       alert('Address updated successfully!');
     } catch (err: any) {
       alert('Failed to update address. Please try again.');
-      console.error(err);
+      console.error('Error updating address:', err);
     }
   };
 
