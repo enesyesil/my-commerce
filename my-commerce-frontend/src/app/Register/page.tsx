@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerUser } from '../../api/auth'; // Import the registration API function
+import Footer from '@/components/Footer';
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
+    <div>
     <div className="min-h-screen bg-yellow-200 flex items-center justify-center">
       <div className="max-w-lg bg-yellow-300 border-2 border-black p-8 rounded-lg shadow-lg text-center">
         <h1 className="text-4xl font-bold text-black mb-6">Register</h1>
@@ -66,6 +68,9 @@ const RegisterPage: React.FC = () => {
           </button>
         </p>
       </div>
+      
+    </div>
+    <Footer />
     </div>
   );
 };

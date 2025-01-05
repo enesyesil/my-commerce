@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginUser } from '../../api/auth';
+import Header from '@/components/Header';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
     try {
       await loginUser(email, password);
       alert('Login successful!');
-      router.push('/Profile'); // Redirect to profile page
+      router.push('/List'); // Redirect to profile page
     } catch (err) {
       setError('Invalid email or password');
       console.error(err);
@@ -23,7 +24,10 @@ const LoginPage: React.FC = () => {
   };
 
   return (
+    <div> 
+    <Header />
     <div className="min-h-screen bg-yellow-200 flex items-center justify-center">
+     
       <div className="max-w-lg bg-yellow-300 border-2 border-black p-16 rounded-lg shadow-lg text-center">
         <h1 className="text-4xl font-bold text-black mb-12">Login</h1>
         <form className="space-y-6" onSubmit={handleLogin}>
@@ -65,6 +69,7 @@ const LoginPage: React.FC = () => {
           </button>
         </p>
       </div>
+    </div>
     </div>
   );
 };
