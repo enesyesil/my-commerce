@@ -89,16 +89,16 @@ The application is built using a multi-tier MVC architecture, ensuring a clear s
 ### Diagrams
 
 #### Sequence Diagram:
-![Sequence Diagram](./Screenshot%202024-12-23%20at%2012.07.25%20PM.png)
+![Sequence Diagram](./Screenshot1.png)
 
 #### API Structure:
-![API Structure](./Screenshot%202024-12-23%20at%2012.24.10%20PM.png)
+![API Structure](./Screenshot2.png)
 
 #### System Architecture:
-![System Architecture](./Screenshot%202024-12-23%20at%2012.21.26%20PM.png)
+![System Architecture](./Screenshot3.png)
 
 #### Database Schema:
-![Database Schema](./Screenshot%202024-12-23%20at%2012.17.21%20PM.png)
+![Database Schema](./Screenshot4.png)
 
 ---
 
